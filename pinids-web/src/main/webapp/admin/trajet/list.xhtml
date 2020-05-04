@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+    <ui:composition template="../layout.xhtml">
+        <ui:define name="title">OTDAV - WebSite</ui:define>
+
+      
+        <ui:define name="content">
+    			
+				 <div style="padding: 20px" class="row padding-15px">
+			   			 		<h3>
+									Liste Evenements
+								</h3>
+								<h:form>
+						    </h:form>
+								
+							
+							   <h:dataTable  rendered="#{adminBean.alLTrajets.size() gt 0}"  id="example" styleClass="table table-striped table-bordered"
+                                                 cellspacing="0" width="100%"
+                                                 value="#{adminBean.alLTrajets}" var="trajet">
+
+                                        <h:column>
+                                            <f:facet name="header">#</f:facet>
+                                            <div>#{trajet.id}</div>
+                                        </h:column>
+                                        
+                                         <h:column>
+                                            <f:facet name="header">#</f:facet>
+                                            <div>#{trajet.nom}</div>
+                                        </h:column>
+                                        
+                                     
+
+                                     
+                                    </h:dataTable>
+							
+						</div>	
+        </ui:define>
+
+      
+
+    </ui:composition>
+</h:body>
+
+</html>

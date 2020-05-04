@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+
+	<ui:composition template="/admin/layout.xhtml">
+
+		<ui:insert name="stylesheets">
+		</ui:insert>
+
+		<ui:define name="content">
+
+			<div
+				style="padding-top: 50px; padding-right: 40px; padding-left: 40px"
+				id='calendar1'></div>
+
+		</ui:define>
+
+		<ui:define name="scripts">
+			<link href='https://use.fontawesome.com/releases/v5.0.6/css/all.css'
+				rel='stylesheet' />
+			<link
+				href='#{request.contextPath}\resources\front/calendar/core/main.css'
+				rel='stylesheet' />
+			<link
+				href='#{request.contextPath}\resources\front/calendar/bootstrap/main.css'
+				rel='stylesheet' />
+			<link
+				href='#{request.contextPath}\resources\front/calendar/timegrid/main.css'
+				rel='stylesheet' />
+			<link
+				href='#{request.contextPath}\resources\front/calendar/daygrid/main.css'
+				rel='stylesheet' />
+			<link
+				href='#{request.contextPath}\resources\front/calendar/list/main.css'
+				rel='stylesheet' />
+			<script
+				src='#{request.contextPath}\resources\front/calendar/core/main.js'></script>
+			<script
+				src='#{request.contextPath}\resources\front/calendar/interaction/main.js'></script>
+			<script
+				src='#{request.contextPath}\resources\front/calendar/bootstrap/main.js'></script>
+			<script
+				src='#{request.contextPath}\resources\front/calendar/daygrid/main.js'></script>
+			<script
+				src='#{request.contextPath}\resources\front/calendar/timegrid/main.js'></script>
+			<script
+				src='#{request.contextPath}\resources\front/calendar/list/main.js'></script>
+			<script
+				src='#{request.contextPath}\resources\front/calendar/js/theme-chooser.js'></script>
+			<script>
+
+			  document.addEventListener('DOMContentLoaded', function() {
+			    var calendarEl = document.getElementById('calendar1');
+				var datas =  [
+			        {
+				          title: 'Business Lunch',
+				          start: '2019-04-03T13:00:00',
+				          constraint: 'businessHours'
+				        },
+				        {
+				          title: 'Meeting',
+				          start: '2019-04-13T11:00:00',
+				          constraint: 'availableForMeeting', // defined below
+				          color: '#257e4a'
+				        },
+				        {
+				          title: 'Conference',
+				          start: '2019-04-18',
+				          end: '2019-04-20'
+				        },
+				        {
+				          title: 'Party',
+				          start: '2019-04-29T20:00:00'
+				        },
+
+				        // areas where "Meeting" must be dropped
+				        {
+				          groupId: 'availableForMeeting',
+				          start: '2019-04-11T10:00:00',
+				          end: '2019-04-11T16:00:00',
+				          rendering: 'background'
+				        },
+				        {
+				          groupId: 'availableForMeeting',
+				          start: '2019-04-13T10:00:00',
+				          end: '2019-04-13T16:00:00',
+				          rendering: 'background'
+				        },
+
+				        // red areas where no events can be dropped
+				        {
+				          start: '2019-04-24',
+				          end: '2019-04-28',
+				          overlap: false,
+				          rendering: 'background',
+				          color: '#ff9f89'
+				        },
+				        {
+				          start: '2019-04-06',
+				          end: '2019-04-08',
+				          overlap: false,
+				          rendering: 'background',
+				          color: '#ff9f89'
+				        }
+				      ];
+			     var content = #{adminBean.getCalendarData()}; 
+			    var calendar = new FullCalendar.Calendar(calendarEl, {
+			      plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+			      header: {
+			        left: 'prev,next today',
+			        center: 'title',
+			        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+			      },
+			      defaultDate: new Date(),
+			      navLinks: true, // can click day/week names to navigate views
+			      businessHours: true, // display business hours
+			      editable: true,
+			      events: content
+			    });
+
+			    calendar.render();
+			  });
+			</script>
+
+		</ui:define>
+
+	</ui:composition>
+
+
+
+</h:body>
+
+</html>

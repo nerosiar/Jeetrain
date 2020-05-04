@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+	<ui:composition template="../layout.xhtml">
+		<ui:define name="title">OTDAV - WebSite</ui:define>
+
+
+		<ui:define name="content">
+
+			<div style="padding: 20px" class="row padding-15px">
+
+				<h3>Reparation #{adminBean.selectedChauffeur.nom}
+					#{adminBean.selectedChauffeur.prenom}</h3>
+				<h:panelGroup
+					rendered="#{adminBean.availableMechanicien.size() gt 0}">
+					<h:form>
+						<div style="color : red">#{adminBean.reparationAddError}</div>
+						<h:inputText value="#{adminBean.addedReparation.dateDebut}" />
+						<br></br>
+						<h:inputText value="#{adminBean.addedReparation.cout}" />
+						<br></br>
+						<h:inputText value="#{adminBean.addedReparation.type}" />
+						<br></br>
+			
+						<h:inputText value="#{adminBean.addedReparation.duree}" />
+						<br></br>
+
+						<h:selectOneMenu value="#{adminBean.selectedMecanicienId}">
+							<f:selectItems value="#{adminBean.availableMechanicien}"
+								var="mec" itemValue="#{mec.id}"
+								itemLabel="#{mec.nom} #{mec.prenom}" />
+						</h:selectOneMenu>
+
+						<h:commandLink action="#{adminBean.doReparation()}"
+							value="Ajout Reparation" />
+					</h:form>
+				</h:panelGroup>
+
+				<h:panelGroup
+					rendered="#{adminBean.availableMechanicien.size() lt 1}">
+					<div>Pas de Mécanicien disponible</div>
+				</h:panelGroup>
+
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
